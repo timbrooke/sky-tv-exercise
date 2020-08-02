@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Button, Container } from "semantic-ui-react";
+import { Button } from "semantic-ui-react";
 import styled from "styled-components";
 import { initFaceAPI, startVideo, stopVideo, trackFace } from "../utils/video";
 
@@ -58,7 +58,6 @@ const VideoArea = () => {
   };
 
   const handleButtonClick = async () => {
-    const canvas = canvasRef.current;
     const video = videoRef.current;
     video.addEventListener("play", videoPlayHander);
     startVideo(video);
@@ -75,7 +74,7 @@ const VideoArea = () => {
   return (
     <>
       <HiddenVideo autoPlay={true} ref={videoRef} />
-      <VideoCanvas ref={canvasRef} />
+      <VideoCanvas ref={canvasRef} width={600} height={600} />
       <Button
         size="large"
         onClick={handleButtonClick}

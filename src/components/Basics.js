@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import {createMedia} from "@artsy/fresnel"
 
 export const VH3 = styled.h3`
   font-size: 2em;

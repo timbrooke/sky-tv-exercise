@@ -35,7 +35,7 @@ const HomepageHeading = ({ mobile }) => (
     />
 
     <Centred>
-    <Image src={'/images/cover_page.png'} large style={{margin:'2em 0 2em 0'}} size={"large"} />
+    <Image src={'/images/cover_page.png'} style={{margin:'2em 0 2em 0'}} size={"large"} />
     </Centred>
 
     <Button primary size="huge" style={{

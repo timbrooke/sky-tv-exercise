@@ -1,21 +1,15 @@
-import { Button, Container, Divider, Header, Segment } from "semantic-ui-react";
+import { Container, Divider, Segment } from "semantic-ui-react";
 import React from "react";
-import styled from "styled-components";
 
-import { VH3, VP, Centred } from "./Basics";
-import VideoArea from "./VideoArea"
-
-
+import { VH3, VP } from "./Basics";
+import VideoArea from "./VideoArea";
 
 const SegmentTwo = ({ Media }) => (
   <Segment style={{ padding: "8em 0em" }} vertical>
     <Container text>
-      <VH3 as="h3" style={{ fontSize: "2em" }}>
-        The Apparatus
-      </VH3>
+      <VH3>The Apparatus</VH3>
 
       <VideoArea />
-
 
       <Divider
         as="h4"
@@ -26,9 +20,7 @@ const SegmentTwo = ({ Media }) => (
           textTransform: "uppercase",
           fontFamily: "Victorian Orchid",
         }}
-      >
-        <a href="#">Controls</a>
-      </Divider>
+      />
 
       <VH3>Measure Your Head</VH3>
       <VP>

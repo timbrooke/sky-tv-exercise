@@ -17,19 +17,18 @@ export async function startVideo(video, deviceId = undefined) {
   return true;
 }
 
-function calcContain(w1, h1, w2, h2) {
-  const r1 = w2 / w1;
-  const r2 = h2 / h1;
-  const ratio = Math.min(r1, r2);
-  const w3 = ratio * w1;
-  const h3 = ratio * h1;
-  console.log(w1, h1, w2, h2, w3, h3);
+export function calcContain(w1, h1, w2, h2) {
+  const r1 = w1 / w2;
+  const r2 = h1 / h2;
+  const ratio = Math.max(r1, r2);
+  const w3 = w1 / ratio;
+  const h3 = h1 / ratio;
   return { w: w3, h: h3 };
 }
 
 export function stopVideo(video) {
   const stream = video.srcObject;
-  if (stream !== null) {
+  if (stream !== null && stream !== undefined) {
     const tracks = stream.getTracks();
     for (let i = 0; i < tracks.length; i++) {
       const track = tracks[i];
@@ -60,7 +59,6 @@ export async function trackFace(video, screenCanvas) {
       screenCanvas.width,
       screenCanvas.height
     );
-    console.log(destRect);
     destCtx.drawImage(
       canvas,
       0,
