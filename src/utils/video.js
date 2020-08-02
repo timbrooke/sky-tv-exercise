@@ -47,28 +47,28 @@ export async function initFaceAPI() {
 export async function trackFace(video, screenCanvas) {
   const detection = await faceapi.detectAllFaces(video).withFaceExpressions();
   const dimensions = { width: video.videoWidth, height: video.videoHeight };
-  if (dimensions.width > 0 && dimensions.height > 0) {
-    const resizedDimensions = faceapi.resizeResults(detection, dimensions);
-    const canvas = faceapi.createCanvasFromMedia(video);
-    faceapi.draw.drawDetections(canvas, resizedDimensions);
-    faceapi.draw.drawFaceExpressions(canvas, resizedDimensions);
-    const destCtx = screenCanvas.getContext("2d");
-    const destRect = calcContain(
-      dimensions.width,
-      dimensions.height,
-      screenCanvas.width,
-      screenCanvas.height
-    );
-    destCtx.drawImage(
-      canvas,
-      0,
-      0,
-      dimensions.width,
-      dimensions.height,
-      0,
-      0,
-      destRect.w,
-      destRect.h
-    );
-  }
+  if (dimensions.width <= 0 && dimensions.height <= 0) return null;
+  const resizedDimensions = faceapi.resizeResults(detection, dimensions);
+  const canvas = faceapi.createCanvasFromMedia(video);
+  faceapi.draw.drawDetections(canvas, resizedDimensions);
+  faceapi.draw.drawFaceExpressions(canvas, resizedDimensions);
+  const destCtx = screenCanvas.getContext("2d");
+  const destRect = calcContain(
+    dimensions.width,
+    dimensions.height,
+    screenCanvas.width,
+    screenCanvas.height
+  );
+  destCtx.drawImage(
+    canvas,
+    0,
+    0,
+    dimensions.width,
+    dimensions.height,
+    0,
+    0,
+    destRect.w,
+    destRect.h
+  );
+  return resizedDimensions;
 }

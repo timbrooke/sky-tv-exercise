@@ -1,11 +1,26 @@
 import React from "react";
 import "./App.css";
 import Home from "./pages/home";
+import Monster from "./pages/monster";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 
 function App() {
   return (
     <div data-testid="mainApp">
-      <Home />
+    <Router>
+      <Switch>
+        <Route path={"/monster"} exact >
+          <Monster />
+        </Route>
+        <Route path={"/"}  >
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
     </div>
   );
 }

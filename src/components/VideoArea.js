@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { Button } from "semantic-ui-react";
 import styled from "styled-components";
 import { initFaceAPI, startVideo, stopVideo, trackFace } from "../utils/video";
+import ExpressionGauges from "./ExpressionGauges";
 
 const VideoCanvas = styled.canvas`
   width: 600px;
@@ -13,28 +14,58 @@ const VideoCanvas = styled.canvas`
   }
 `;
 
+const Columns = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const HiddenVideo = styled.video`
   position: absolute;
   top: -9999px;
   left: -9999px;
 `;
 
+const expressionDefaults = [
+  { label: "angry", value: 0 },
+  { label: "disgusted", value: 0 },
+  { label: "fearful", value: 0 },
+  { label: "happy", value: 0 },
+  { label: "neutral", value: 0 },
+  { label: "sad", value: 0 },
+  { label: "surprised", value: 0 },
+];
+
+const objectToArray = (obj) => {
+  const keys = Object.keys(obj);
+  return keys.map((key) => ({ label: key, value: obj[key] }));
+};
+
 const VideoArea = () => {
   const videoRef = useRef();
   const canvasRef = useRef();
   const trackingFlag = useRef(false);
 
+  const [expressions, setExpressions] = useState(expressionDefaults);
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const videoPlayHander = () => {
     handleVideoStarted();
   };
 
-  const trackingLoop = () => {
+  const trackingLoop = async () => {
     if (trackingFlag.current) {
       const video = videoRef.current;
       const canvas = canvasRef.current;
-      trackFace(video, canvas);
+      const result = await trackFace(video, canvas);
+      if (result && Array.isArray(result) && result.length > 0) {
+        // console.log(result[0].expressions);
+        setExpressions(objectToArray(result[0].expressions));
+      }
       window.requestAnimationFrame(trackingLoop);
     }
   };
@@ -48,6 +79,7 @@ const VideoArea = () => {
     trackingFlag.current = false;
     const video = videoRef.current;
     stopVideo(video);
+    setButtonDisabled(false)
   };
 
   const handleVideoStarted = () => {
@@ -55,6 +87,10 @@ const VideoArea = () => {
     const video = videoRef.current;
     video.removeEventListener("play", videoPlayHander);
     startTrackingVideo();
+  };
+
+  const handleStopButtonClick = () => {
+    stopTrackingVideo();
   };
 
   const handleButtonClick = async () => {
@@ -72,18 +108,33 @@ const VideoArea = () => {
   }, []);
 
   return (
-    <>
-      <HiddenVideo autoPlay={true} ref={videoRef} />
-      <VideoCanvas ref={canvasRef} width={600} height={600} />
-      <Button
-        size="large"
-        onClick={handleButtonClick}
-        disabled={buttonDisabled}
-        primary
-      >
-        Press the button here to begin.
-      </Button>
-    </>
+    <Columns>
+      <div>
+        <HiddenVideo autoPlay={true} ref={videoRef} />
+        <VideoCanvas ref={canvasRef} width={600} height={600} />
+        <Button
+          size="large"
+          onClick={handleButtonClick}
+          disabled={buttonDisabled}
+
+          color="green"
+        >
+          Press the button here to begin.
+        </Button>
+        <Button
+          size="large"
+          onClick={handleStopButtonClick}
+          disabled={!buttonDisabled}
+
+          color="red"
+        >
+          Press the button here to stop.
+        </Button>
+      </div>
+      <Column>
+        <ExpressionGauges expressions={expressions} />
+      </Column>
+    </Columns>
   );
 };
 
