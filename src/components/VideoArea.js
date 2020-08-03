@@ -3,6 +3,7 @@ import { Button } from "semantic-ui-react";
 import styled from "styled-components";
 import { initFaceAPI, startVideo, stopVideo, trackFace } from "../utils/video";
 import ExpressionGauges from "./ExpressionGauges";
+import ValuesBuffer from "../utils/ValuesBuffer";
 
 const VideoCanvas = styled.canvas`
   width: 600px;
@@ -46,12 +47,16 @@ const objectToArray = (obj) => {
 };
 
 const VideoArea = () => {
+  const expressionsBufferRef = useRef();
   const videoRef = useRef();
   const canvasRef = useRef();
   const trackingFlag = useRef(false);
 
   const [expressions, setExpressions] = useState(expressionDefaults);
   const [buttonDisabled, setButtonDisabled] = useState(false);
+
+  const bufferLength = 400;
+  expressionsBufferRef.current = new ValuesBuffer(bufferLength);
 
   const videoPlayHander = () => {
     handleVideoStarted();
@@ -63,8 +68,11 @@ const VideoArea = () => {
       const canvas = canvasRef.current;
       const result = await trackFace(video, canvas);
       if (result && Array.isArray(result) && result.length > 0) {
-        // console.log(result[0].expressions);
-        setExpressions(objectToArray(result[0].expressions));
+        const currentExpressions = result[0].expressions;
+        const buffer = expressionsBufferRef.current;
+        buffer.receive(currentExpressions);
+        const averages = buffer.getAverages();
+        setExpressions(objectToArray(averages));
       }
       window.requestAnimationFrame(trackingLoop);
     }
@@ -79,7 +87,7 @@ const VideoArea = () => {
     trackingFlag.current = false;
     const video = videoRef.current;
     stopVideo(video);
-    setButtonDisabled(false)
+    setButtonDisabled(false);
   };
 
   const handleVideoStarted = () => {
@@ -116,7 +124,6 @@ const VideoArea = () => {
           size="large"
           onClick={handleButtonClick}
           disabled={buttonDisabled}
-
           color="green"
         >
           Press the button here to begin.
@@ -125,7 +132,6 @@ const VideoArea = () => {
           size="large"
           onClick={handleStopButtonClick}
           disabled={!buttonDisabled}
-
           color="red"
         >
           Press the button here to stop.
