@@ -44,12 +44,12 @@ export async function initFaceAPI() {
   await faceapi.nets.faceExpressionNet.loadFromUri("/faceapi/weights");
 }
 
-function drawCrossHairs(ctx, dimensions, rect) {
+function drawCrossHairs(ctx, dimensions, rect, height) {
   if (dimensions.length < 1) return;
   const box = dimensions[0].detection.box;
   if (box) {
-    const x = (box.left + box.right)/2;
-    const y = (box.top + box.bottom)/2;
+    const x = (box.left + box.right) / 2;
+    const y = (box.top + box.bottom) / 2;
     ctx.strokeStyle = "#0000ff";
     ctx.lineWidth = 1;
     ctx.beginPath();
@@ -58,6 +58,11 @@ function drawCrossHairs(ctx, dimensions, rect) {
     ctx.moveTo(0, y);
     ctx.lineTo(rect.w, y);
     ctx.stroke();
+
+    ctx.font = "20px Arial";
+    ctx.fillStyle = "white";
+    ctx.fillText(`x: ${x.toFixed(2)}`, 10, height - 35);
+    ctx.fillText(`y: ${y.toFixed(2)}`, 10, height - 10);
   }
 }
 
@@ -102,6 +107,6 @@ export async function trackFace(video, screenCanvas) {
   faceapi.draw.drawDetections(screenCanvas, resizedDimensions2);
   faceapi.draw.drawFaceExpressions(screenCanvas, resizedDimensions2);
   // faceapi.draw.drawFaceLandmarks(screenCanvas, resizedDimensions2);
-  drawCrossHairs(destCtx, resizedDimensions2, destRect);
+  drawCrossHairs(destCtx, resizedDimensions2, destRect, screenCanvas.height);
   return resizedDimensions;
 }
