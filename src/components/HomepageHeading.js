@@ -2,13 +2,25 @@
  * HomepageHeading uses inline styling, however it's not the best practice. Use CSS or styled
  * components for such things.
  */
-import React from "react";
+import React, {useContext} from "react";
 import { Button, Container, Header, Icon, Image } from "semantic-ui-react";
 import PropTypes from "prop-types";
+import { store } from '../store/store.js';
 
-import {Centred} from './Basics'
+import { Centred } from "./Basics";
 
-const HomepageHeading = ({ mobile }) => (
+const HomepageHeading = ({ mobile }) => {
+  const globalState = useContext(store);
+
+  const onClick = () => {
+    console.log(globalState)
+    const ref = globalState.state.anchors.get('LastNight')
+    if(ref){
+      ref.current.scrollIntoView({behavior:"smooth"})
+    }
+  }
+
+  return (
   <Container text>
     <Header
       as="h1"
@@ -19,7 +31,7 @@ const HomepageHeading = ({ mobile }) => (
         fontWeight: "normal",
         marginBottom: 0,
         marginTop: mobile ? "1em" : "2em",
-        fontFamily: '"Victorian Orchid", serif'
+        fontFamily: '"Victorian Orchid", serif',
       }}
     />
     <Header
@@ -30,23 +42,30 @@ const HomepageHeading = ({ mobile }) => (
         fontSize: mobile ? "1.5em" : "1.7em",
         fontWeight: "normal",
         marginTop: mobile ? "0.5em" : "1.5em",
-        fontFamily: '"Victorian Orchid", serif'
+        fontFamily: '"Victorian Orchid", serif',
       }}
     />
 
     <Centred>
-    <Image src={'/images/cover_page.png'} style={{margin:'2em 0 2em 0'}} size={"large"} />
+      <Image
+        src={"/images/cover_page.png"}
+        style={{ margin: "2em 0 2em 0" }}
+        size={"large"}
+      />
     </Centred>
 
-    <Button primary size="huge" style={{
-      fontFamily: '"Victorian Orchid", serif'
-    }}>
+    <Button
+      size="huge"
+      style={{
+        fontFamily: '"Victorian Orchid", serif',
+      }}
+      onClick={onClick}
+    >
       Uncover the Beast!
       <Icon name="right arrow" />
     </Button>
-
   </Container>
-);
+)};
 
 HomepageHeading.propTypes = {
   mobile: PropTypes.bool,

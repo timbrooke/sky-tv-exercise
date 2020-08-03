@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 // import { initApp } from '../apps/comedyGlasses/comedyGlasses';
 
 import styled from "styled-components";
