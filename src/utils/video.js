@@ -23,7 +23,7 @@ export function calcContain(w1, h1, w2, h2) {
   const ratio = Math.max(r1, r2);
   const w3 = w1 / ratio;
   const h3 = h1 / ratio;
-  return { w: w3, h: h3 };
+  return { w: w3, h: h3, r: ratio };
 }
 
 export function stopVideo(video) {
@@ -44,21 +44,48 @@ export async function initFaceAPI() {
   await faceapi.nets.faceExpressionNet.loadFromUri("/faceapi/weights");
 }
 
+function drawCrossHairs(ctx, dimensions, rect) {
+  if (dimensions.length < 1) return;
+  const box = dimensions[0].detection.box;
+  if (box) {
+    const x = (box.left + box.right)/2;
+    const y = (box.top + box.bottom)/2;
+    ctx.strokeStyle = "#0000ff";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, rect.h);
+    ctx.moveTo(0, y);
+    ctx.lineTo(rect.w, y);
+    ctx.stroke();
+  }
+}
+
 export async function trackFace(video, screenCanvas) {
   const detection = await faceapi.detectAllFaces(video).withFaceExpressions();
+  // .withFaceLandmarks()
   const dimensions = { width: video.videoWidth, height: video.videoHeight };
-  if (dimensions.width <= 0 && dimensions.height <= 0) return null;
-  const resizedDimensions = faceapi.resizeResults(detection, dimensions);
-  const canvas = faceapi.createCanvasFromMedia(video);
-  faceapi.draw.drawDetections(canvas, resizedDimensions);
-  faceapi.draw.drawFaceExpressions(canvas, resizedDimensions);
-  const destCtx = screenCanvas.getContext("2d");
   const destRect = calcContain(
     dimensions.width,
     dimensions.height,
     screenCanvas.width,
     screenCanvas.height
   );
+  const screenCanvasDimensions = {
+    width: destRect.w,
+    height: destRect.h,
+  };
+  if (dimensions.width <= 0 && dimensions.height <= 0) return null;
+  const resizedDimensions = faceapi.resizeResults(detection, dimensions);
+  const resizedDimensions2 = faceapi.resizeResults(
+    detection,
+    screenCanvasDimensions
+  );
+
+  // Draw video to offscreen canvas
+  const canvas = faceapi.createCanvasFromMedia(video);
+  const destCtx = screenCanvas.getContext("2d");
+  destCtx.clearRect(0, 0, screenCanvas.width, screenCanvas.height);
   destCtx.drawImage(
     canvas,
     0,
@@ -70,5 +97,11 @@ export async function trackFace(video, screenCanvas) {
     destRect.w,
     destRect.h
   );
+
+  // Draw marking to screenCanvas
+  faceapi.draw.drawDetections(screenCanvas, resizedDimensions2);
+  faceapi.draw.drawFaceExpressions(screenCanvas, resizedDimensions2);
+  // faceapi.draw.drawFaceLandmarks(screenCanvas, resizedDimensions2);
+  drawCrossHairs(destCtx, resizedDimensions2, destRect);
   return resizedDimensions;
 }

@@ -16,8 +16,8 @@ class ValuesBuffer {
       }
       entry.addValue(data[key]);
     });
-    console.log(this.values);
   }
+
   getAverages() {
     const result = {};
     this.values.forEach((value, key) => {
