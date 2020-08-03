@@ -9,7 +9,7 @@ const SegmentOne = () => (
     <Grid container stackable verticalAlign="middle">
       <Grid.Row>
         <Grid.Column width={8}>
-          <VH3>On the loose ...</VH3>
+          <VH3>Last Night</VH3>
           <VP>
             Last night a man rang the doorbell of Jane Alsop, screaming that
             they had caught Spring-Heeled Jack, and that they needed help. When

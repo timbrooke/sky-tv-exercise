@@ -12,7 +12,7 @@ const HomepageHeading = ({ mobile }) => (
   <Container text>
     <Header
       as="h1"
-      content="Spring heeled Jack"
+      content="Spring Heeled Jack"
       inverted
       style={{
         fontSize: mobile ? "2em" : "4em",
