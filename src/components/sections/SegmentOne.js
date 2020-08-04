@@ -1,27 +1,14 @@
-import React, { useContext, useRef, useEffect } from "react";
+import React from "react";
 import { Button, Grid, Image, Segment } from "semantic-ui-react";
-import { store } from "../store/store.js";
-import { VH3, VP } from "./Basics";
+import {TopH3, VH3, VP} from "../Basics";
 
 const SegmentOne = () => {
-  const globalState = useContext(store);
-  const { dispatch } = globalState;
-
-  const anchorRef = useRef();
-
-  useEffect(() => {
-    dispatch({
-      type: "registerAnchor",
-      payload: { ref: anchorRef, name: "LastNight" },
-    });
-  }, [anchorRef, dispatch]);
-
   return (
-    <Segment style={{ padding: "8em 0em" }} vertical>
+    <Segment vertical>
       <Grid container stackable verticalAlign="middle">
         <Grid.Row>
           <Grid.Column width={8}>
-            <VH3 ref={anchorRef}>Last Night</VH3>
+            <TopH3 style={{paddingTop:'30px'}}>Last Night</TopH3>
             <VP>
               Last night a man rang the doorbell of Jane Alsop, screaming that
               they had caught Spring-Heeled Jack, and that they needed help.

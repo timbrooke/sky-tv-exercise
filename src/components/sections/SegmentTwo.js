@@ -1,24 +1,28 @@
 import { Button, Container, Divider, Segment } from "semantic-ui-react";
 import { useHistory } from "react-router-dom";
-import React from "react";
+import React, { useRef, useEffect } from "react";
 
-import { VH3, VP } from "./Basics";
-import VideoArea from "./VideoArea";
+import { TopH3, VH3, VP } from "../Basics";
+import VideoArea from "../VideoArea";
+import Jumper from "../../utils/Jumper";
 
 const SegmentTwo = ({ Media }) => {
+  const apparatusAnchorRef = useRef();
   const history = useHistory();
+
+  useEffect(() => {
+    Jumper.getInstance().registerLoc("Apparatus", "/", apparatusAnchorRef);
+  });
 
   function handleClickProceed() {
     history.push("/between");
   }
 
   return (
-    <Segment style={{ padding: "8em 0em" }} vertical>
+    <Segment vertical>
       <Container text>
-        <VH3>The Apparatus</VH3>
-
+        <TopH3 ref={apparatusAnchorRef}>The Apparatus</TopH3>
         <VideoArea />
-
         <Divider
           as="h4"
           className="header"

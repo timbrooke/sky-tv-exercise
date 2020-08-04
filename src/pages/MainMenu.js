@@ -163,9 +163,8 @@ const HomepageLayout = () => {
   return (
     <div ref={homeAnchorRef}>
       <ResponsiveContainer>
-        <TopSegment />
-        <SegmentOne />
-        <SegmentTwo />
+
+        <RoutedPages />
 
         <Segment inverted vertical style={{ padding: "5em 0em" }}>
           <Container>

@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { initApp } from "../apps/comedyGlasses/comedyGlasses";
 
 import styled from "styled-components";
+import Jumper from "../utils/Jumper"
 
 const Wall = styled.div`
   // background-image: url('images/mirror_with_hole.png');
@@ -24,9 +25,11 @@ const Wall = styled.div`
 `;
 
 const MonsterPage = () => {
+  const wallRef = useRef();
   useEffect(() => {
     initApp();
-  });
+    Jumper.getInstance().registerLoc('Beast','/monster',wallRef)
+  },[]);
   return (
     <div className="App">
       <canvas width="1024" height="1024" id="jeeFaceFilterCanvas" />
