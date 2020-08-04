@@ -32,10 +32,11 @@ const CoreMenu = () => {
   const { dispatch } = globalState;
 
   const activeLabel = globalState.state.menu;
-  function handleClick(label) {
+  const handleClick = (label) => {
     dispatch({ type: "menuUpdate", payload: { menu: label } });
     const item = menuData.find((item) => item.label === label);
     if (!item) return;
+    console.log("ABOUT TO JUMP ",history);
     if (item.loc) Jumper.getInstance().jumpTo(item.loc,history);
   }
 

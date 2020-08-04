@@ -1,5 +1,10 @@
 import styled from "styled-components"
 
+export const BlackBacking = styled.div`
+  width: 100%;
+  background-color: #1b1c1d;
+`;
+
 export const VH3 = styled.h3`
   font-size: 2em;
   font-family: "Victorian Orchid", serif;

@@ -2,9 +2,7 @@
 /* eslint-disable react/no-multi-comp */
 
 import HomepageHeading from "../components/sections/HomepageHeading";
-import TopSegment from "../components/sections/TopSegment";
-import SegmentOne from "../components/sections/SegmentOne";
-import SegmentTwo from "../components/sections/SegmentTwo";
+import RoutedPages from "./RoutedPages";
 
 import { createMedia } from "@artsy/fresnel";
 
@@ -23,8 +21,7 @@ import {
 } from "semantic-ui-react";
 
 import CoreMenu from "../components/CoreMenu";
-import {register} from "../serviceWorker"
-import Jumper from "../utils/Jumper"
+import Jumper from "../utils/Jumper";
 
 const { MediaContextProvider, Media } = createMedia({
   breakpoints: {
@@ -72,7 +69,7 @@ class DesktopContainer extends Component {
                 <CoreMenu />
               </Container>
             </Menu>
-            <HomepageHeading />
+
           </Segment>
         </Visibility>
 
@@ -157,15 +154,13 @@ ResponsiveContainer.propTypes = {
 
 const HomepageLayout = () => {
   const homeAnchorRef = useRef();
-  useEffect(()=>{
-    Jumper.getInstance().registerLoc('Home',"/",homeAnchorRef);
-  },[])
+  useEffect(() => {
+    Jumper.getInstance().registerLoc("Home", "/", homeAnchorRef);
+  }, []);
   return (
     <div ref={homeAnchorRef}>
       <ResponsiveContainer>
-
         <RoutedPages />
-
         <Segment inverted vertical style={{ padding: "5em 0em" }}>
           <Container>
             <Grid divided inverted stackable>
