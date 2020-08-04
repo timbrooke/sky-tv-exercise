@@ -21,11 +21,12 @@ class Jumper {
       if (uri) {
         history.push(uri);
       }
-
     } else {
       if (locName) {
         history.push(info.uri);
-        info.ref.current.scrollIntoView({behavior: "smooth"});
+        if(info.ref.current) {
+          info.ref.current.scrollIntoView({behavior: "smooth"});
+        }
       }
     }
   }
