@@ -58,7 +58,6 @@ function drawCrossHairs(ctx, dimensions, rect, height) {
     ctx.moveTo(0, y);
     ctx.lineTo(rect.w, y);
     ctx.stroke();
-
     ctx.font = "20px Arial";
     ctx.fillStyle = "white";
     ctx.fillText(`x: ${x.toFixed(2)}`, 10, height - 35);
