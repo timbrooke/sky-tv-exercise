@@ -1,7 +1,7 @@
 const uris = {
   Home: { uri: "/", scroll: 0, label: "Hone" },
   LastNight: { uri: "/", scroll: 975, label: "LasyNight" },
-  Apparatus: { uri: "/", scroll: 1700, label: "Apparatus" },
+  Apparatus: { uri: "/", scroll: 1800, label: "Apparatus" },
   Beast: { uri: "/monster", scroll: 0, label: "Beast" },
   Between: { uri: "/between", scroll: 0, label: "Between" },
   Technology: { uri: "/technology", scroll: 0, label: "Technology" },

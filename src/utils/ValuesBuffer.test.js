@@ -1,6 +1,5 @@
 import ValuesBuffer from "./ValuesBuffer"
 
-
 describe('ValueBuffer',()=>{
   it('should accept an object with number values and store them',()=>{
     const vb = new ValuesBuffer();

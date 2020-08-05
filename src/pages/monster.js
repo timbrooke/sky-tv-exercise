@@ -1,11 +1,9 @@
 import React, { useEffect, useRef } from "react";
-import { initApp } from "../apps/comedyGlasses/comedyGlasses";
+import { initApp, destroyApp } from "../apps/comedyGlasses/comedyGlasses";
 
 import styled from "styled-components";
-import Jumper from "../utils/Jumper"
 
 const Wall = styled.div`
-  // background-image: url('images/mirror_with_hole.png');
   background-image: url("images/mirror_cutout_black_white_small.png");
 
   background-size: cover;
@@ -25,6 +23,12 @@ const Wall = styled.div`
 `;
 
 const MonsterPage = () => {
+  useEffect(() => {
+    initApp();
+    return(()=>{
+      destroyApp();
+    })
+  }, []);
   return (
     <div className="App">
       <canvas width="1024" height="1024" id="jeeFaceFilterCanvas" />

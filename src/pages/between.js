@@ -1,8 +1,9 @@
 import React from "react";
-import { Button } from "semantic-ui-react";
+import {Button, Container} from "semantic-ui-react";
 import { useHistory } from "react-router-dom";
 
 import styled from "styled-components";
+import {VP} from "../components/Basics"
 
 const Backing = styled.div`
   width: 100vw;
@@ -40,14 +41,12 @@ const Page = () => {
   return (
     <Backing>
       <TextHolder>
-        <p>
-          We have you here somewhat under false pretenses. We've been suspecting
-          for a while and the apparatus has allowed us to study your brainwaves.
-          Actually your brainwaves tell us something about your temperament.
-        </p>
-        <p>
-          Dare you face the mirror of truth? It will reveal your true nature.
-        </p>
+        <VP>
+          The apparatus has allowed us to gain access to your brainwaves. This
+          examination has revealed your personality and inclinations clearly to
+          us. Our suspicions are confirmed. We believe you to be our suspect.
+        </VP>
+        <VP>Time to face the mirror of truth and reveal your true nature.</VP>
         <ButtonSpacer>
           <Button onClick={handleClickProceed}>Click to proceed</Button>
         </ButtonSpacer>
