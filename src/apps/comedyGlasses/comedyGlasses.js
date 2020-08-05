@@ -5,7 +5,7 @@ import "./comedyGlasses.css";
 //const JEEFACEFILTERAPI = window.JEEFACEFILTERAPI;
 
 //SETTINGS of this demo :
-var SETTINGS = {
+const SETTINGS = {
   rotationOffsetX: 0, //negative -> look upper. in radians
   cameraFOV: 40, //in degrees, 3D camera FOV
   pivotOffsetYZ: [-0.15, -0.15], //position the rotation pivot along Y and Z axis
@@ -186,6 +186,8 @@ function init_scene(spec) {
   };
 } //end init_scene()
 
+const reference  = {};
+
 //launched by body.onload() :
 export function initApp() {
   DIV = document.getElementById("jeelizFaceFilterFollow");
@@ -308,6 +310,4 @@ export function initApp() {
   }); //end JEEFACEFILTERAPI.init call
 } //end main()
 
-export function destroyApp() {
-  JEEFACEFILTERAPI.destroy();
-}
+export const Jeeliz = JEEFACEFILTERAPI;

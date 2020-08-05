@@ -24,12 +24,7 @@ const menuData = [
   {
     label: "Beast",
     loc: "Beast"
-  },
-
-  {
-    label: "Technology",
-    loc:"technology"
-  },
+  }
 ];
 
 const CoreMenu = () => {

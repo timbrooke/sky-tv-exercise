@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { initFaceAPI, startVideo, stopVideo, trackFace } from "../utils/video";
 import ExpressionGauges from "./ExpressionGauges";
 import ValuesBuffer from "../utils/ValuesBuffer";
+import { VP } from "../components/Basics";
 
 const VideoCanvas = styled.canvas`
   width: 600px;
@@ -120,6 +121,9 @@ const VideoArea = () => {
       <div>
         <HiddenVideo autoPlay={true} ref={videoRef} />
         <VideoCanvas ref={canvasRef} width={600} height={600} />
+
+
+
         <Button
           size="large"
           onClick={handleButtonClick}
@@ -136,6 +140,10 @@ const VideoArea = () => {
         >
           Press the button here to stop.
         </Button>
+        <VP style={{paddingTop:'40px'}}>
+          Please look directly into the camera and begin the test by pressing
+          the green button.
+        </VP>
       </div>
       <Column>
         <ExpressionGauges expressions={expressions} />

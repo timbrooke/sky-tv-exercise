@@ -9,7 +9,7 @@ const Backing = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   background-color: #1B1C1D;
   color: white;
@@ -21,14 +21,16 @@ const TextHolder = styled.div`
   @media (max-width: 768px) {
     max-width: 400px;
   }
-  font-size: 1.5em;
-  line-height: 1.5em;
+  font-size: 1.3em;
+  line-height: 1.3em;
   letter-spacing: 0.1em;
+  padding-top: 4em;
 `;
 
 const ButtonSpacer = styled.div`
+  padding-top: 2em;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
 `;
 
 const Page = () => {
