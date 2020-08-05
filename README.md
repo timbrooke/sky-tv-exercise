@@ -30,9 +30,23 @@ So it's a React based website.
 ## Folders
 
 The project follows the usual structure for Create React App.
-- public contains data and images
-
-- src - contains the code
+* public contains data and images
+    * data - trained neural net (from Jeeliz)
+    * faceapi - trained neural nets 
+    * images - pictures for the app
+* src - contains the code
+    * apps (Jeeliz Apps)
+    * components - react components
+    * dist - Jeeliz libraries
+    * helpers - Jeeliz helper libraries
+    * libs - threejs
+    * pages - the website pages
+    * store - data store and context for menu
+    * utils - functional parts of the code
+        * CircularBuffer.js - circular buffer to smooth data
+        * Jumper.js - navigation helpers
+        * video.js - video handling and initiating neural nets
+    
 
 ### src folder
 
