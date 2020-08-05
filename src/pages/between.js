@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Container, Segment } from "semantic-ui-react";
+import { Button } from "semantic-ui-react";
 import { useHistory } from "react-router-dom";
 
 import styled from "styled-components";

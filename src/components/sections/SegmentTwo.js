@@ -1,7 +1,8 @@
+import React, { useRef,useContext } from "react";
 import { Button, Container, Divider, Segment } from "semantic-ui-react";
 import { useHistory } from "react-router-dom";
-import React, { useRef, useEffect } from "react";
 
+import {store} from "../../store/store";
 import { TopH3, VH3, VP } from "../Basics";
 import VideoArea from "../VideoArea";
 import Jumper from "../../utils/Jumper";
@@ -9,13 +10,11 @@ import Jumper from "../../utils/Jumper";
 const SegmentTwo = ({ Media }) => {
   const apparatusAnchorRef = useRef();
   const history = useHistory();
-
-  useEffect(() => {
-    Jumper.getInstance().registerLoc("Apparatus", "/", apparatusAnchorRef);
-  });
+  const globalState = useContext(store);
+  const { dispatch } = globalState;
 
   function handleClickProceed() {
-    history.push("/between");
+    Jumper.getInstance().jumpTo("Between",history,dispatch);
   }
 
   return (

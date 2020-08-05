@@ -6,7 +6,7 @@ import Jumper from "../utils/Jumper"
 
 const Wall = styled.div`
   // background-image: url('images/mirror_with_hole.png');
-  background-image: url("images/mirror_cutout_black_white.png");
+  background-image: url("images/mirror_cutout_black_white_small.png");
 
   background-size: cover;
   background-repeat: no-repeat;
@@ -25,11 +25,6 @@ const Wall = styled.div`
 `;
 
 const MonsterPage = () => {
-  const wallRef = useRef();
-  useEffect(() => {
-    initApp();
-    Jumper.getInstance().registerLoc('Beast','/monster',wallRef)
-  },[]);
   return (
     <div className="App">
       <canvas width="1024" height="1024" id="jeeFaceFilterCanvas" />

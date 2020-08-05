@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import { Segment, Container, Image, Button, Icon } from "semantic-ui-react";
 import styled from "styled-components";
@@ -16,13 +16,7 @@ const Placeholder = styled.div`
 `;
 
 const TopSegment = () => {
-  const placeHolderRef = useRef();
   const history = useHistory();
-
-  useEffect(() => {
-    Jumper.getInstance().registerLoc("LastNight","/", placeHolderRef);
-  }, [placeHolderRef]);
-
   const onClick = () => {
     Jumper.getInstance().jumpTo("LastNight", history);
   };
@@ -36,7 +30,6 @@ const TopSegment = () => {
               style={{ margin: "2em 0 2em 0" }}
               size={"large"}
             />
-
             <Button
               size="huge"
               style={{
@@ -47,7 +40,7 @@ const TopSegment = () => {
               Uncover the Beast!
               <Icon name="right arrow" />
             </Button>
-            <Placeholder ref={placeHolderRef} />
+            <Placeholder />
           </Centred>
         </Segment>
       </Container>
