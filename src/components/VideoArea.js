@@ -1,10 +1,13 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useContext } from "react";
 import { Button } from "semantic-ui-react";
 import styled from "styled-components";
 import { initFaceAPI, startVideo, stopVideo, trackFace } from "../utils/video";
 import ExpressionGauges from "./ExpressionGauges";
 import ValuesBuffer from "../utils/ValuesBuffer";
 import { VP } from "../components/Basics";
+import Jumper from "../utils/Jumper";
+import { useHistory } from "react-router-dom";
+import { store } from "../store/store";
 
 const VideoCanvas = styled.canvas`
   width: 600px;
@@ -48,6 +51,9 @@ const objectToArray = (obj) => {
 };
 
 const VideoArea = () => {
+  const history = useHistory();
+  const globalState = useContext(store);
+  const { dispatch } = globalState;
   const expressionsBufferRef = useRef();
   const videoRef = useRef();
   const canvasRef = useRef();
@@ -116,13 +122,15 @@ const VideoArea = () => {
     };
   }, []);
 
+  function handleClickProceed() {
+    Jumper.getInstance().jumpTo("Between", history, dispatch);
+  }
+
   return (
     <Columns>
       <div>
         <HiddenVideo autoPlay={true} ref={videoRef} />
         <VideoCanvas ref={canvasRef} width={600} height={600} />
-
-
 
         <Button
           size="large"
@@ -130,7 +138,7 @@ const VideoArea = () => {
           disabled={buttonDisabled}
           color="green"
         >
-          Press the button here to begin.
+          Press to start.
         </Button>
         <Button
           size="large"
@@ -138,9 +146,12 @@ const VideoArea = () => {
           disabled={!buttonDisabled}
           color="red"
         >
-          Press the button here to stop.
+          Press to stop.
         </Button>
-        <VP style={{paddingTop:'40px'}}>
+        <Button onClick={handleClickProceed} size="large">
+          Press to Proceed - when done.
+        </Button>
+        <VP style={{ paddingTop: "40px" }}>
           Please look directly into the camera and begin the test by pressing
           the green button.
         </VP>

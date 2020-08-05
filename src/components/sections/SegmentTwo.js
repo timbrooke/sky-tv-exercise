@@ -8,19 +8,14 @@ import VideoArea from "../VideoArea";
 import Jumper from "../../utils/Jumper";
 
 const SegmentTwo = ({ Media }) => {
-  const apparatusAnchorRef = useRef();
-  const history = useHistory();
-  const globalState = useContext(store);
-  const { dispatch } = globalState;
 
-  function handleClickProceed() {
-    Jumper.getInstance().jumpTo("Between", history, dispatch);
-  }
+
+
 
   return (
     <Segment vertical>
       <Container text>
-        <TopH3 ref={apparatusAnchorRef}>The Apparatus</TopH3>
+        <TopH3>The Apparatus</TopH3>
         <VideoArea />
         <Divider
           as="h4"
@@ -34,9 +29,7 @@ const SegmentTwo = ({ Media }) => {
         />
 
 
-        <Button onClick={handleClickProceed}>
-          Proceed - when you are finished here.
-        </Button>
+
       </Container>
     </Segment>
   );
